@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { PhoneCall, Croissant, CalendarDays, Moon, Sun, Languages } from "lucide-react";
+import { PhoneCall, Croissant, CalendarDays, Moon, Sun } from "lucide-react";
 import { VapiWebCallButton } from "@/components/vapi-web-call-button";
 import { useTheme } from "next-themes";
 
@@ -19,7 +19,7 @@ const content = {
     test1: "Click the button above to start a live voice call directly from your browser.",
     test2: "Ask the AI about a Za'atar Focaccia or a Cranberry Walnut Boule. It knows the menu.",
     test3: "Tell it you want to order a box of bagels for this Saturday at Hazeldean.",
-    greeting: "Welcome to Toast Face Bread Co! Bonjour, bienvenue chez Toast Face! Are you looking to order some fresh sourdough, focaccia, or bagels for weekend pickup?",
+    greeting: "Welcome to Toast Face Bread Co! Are you looking to order some fresh sourdough, focaccia, or bagels for weekend pickup?",
     promptLanguage: "Speak strictly in English."
   },
   fr: {
@@ -40,14 +40,13 @@ const content = {
 
 export default function BakeryDemoPage() {
   const [isMounted, setIsMounted] = useState(false);
-  const [lang, setLang] = useState<"en" | "fr">("en");
   const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  const t = content[lang];
+  const t = content.en;
 
   const systemPrompt = `You are Toasty, a fun, enthusiastic artisanal bakery assistant for Toast Face Bread Co., a small-batch sourdough operation run by Angie.
 ${t.promptLanguage}
@@ -90,13 +89,6 @@ Keep your responses warm, fun, and extremely helpful.`;
           </div>
           
           <div className="flex items-center gap-2 border-l border-orange-100 pl-6 dark:border-slate-800">
-            <button
-              onClick={() => setLang(lang === "en" ? "fr" : "en")}
-              className="flex h-9 items-center justify-center gap-2 rounded-full px-3 text-sm font-medium text-slate-600 transition-colors hover:bg-orange-50 dark:text-slate-300 dark:hover:bg-slate-800"
-            >
-              <Languages className="h-4 w-4" />
-              <span>{lang.toUpperCase()}</span>
-            </button>
             {isMounted && (
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -187,7 +179,7 @@ Keep your responses warm, fun, and extremely helpful.`;
               <h2 className="mb-12 font-display text-3xl font-semibold text-slate-900 dark:text-white">
                 Orders sync directly into your dashboard
               </h2>
-              <DashboardMockup locale={lang} />
+              <DashboardMockup locale="en" />
             </div>
           </div>
         </section>
