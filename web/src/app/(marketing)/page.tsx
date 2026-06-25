@@ -1,55 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { PhoneCall, Croissant, CalendarDays, Moon, Sun } from "lucide-react";
+import Link from "next/link";
+import { PhoneCall, Croissant, MapPin, Camera } from "lucide-react";
 import { VapiWebCallButton } from "@/components/vapi-web-call-button";
-import { useTheme } from "next-themes";
 
-import { DashboardMockup } from "@/components/marketing/dashboard-mockup";
-
-const content = {
-  en: {
-    title: "Toast Face",
-    subtitle: "Bread Co",
-    demo: "AI Bakery Assistant",
-    h1_1: "Never Miss a ",
-    h1_2: "Bread Order.",
-    desc: "How many orders are slipping through the cracks while you're busy baking? Meet your new digital bakery assistant, trained specifically to take sourdough orders for weekend pickups and answer customer questions instantly.",
-    howTo: "How to test this assistant:",
-    test1: "Click the button above to start a live voice call directly from your browser.",
-    test2: "Ask the AI about a Za'atar Focaccia or a Cranberry Walnut Boule. It knows the menu.",
-    test3: "Tell it you want to order a box of bagels for this Saturday at Hazeldean.",
-    greeting: "Welcome to Toast Face Bread Co! Are you looking to order some fresh sourdough, focaccia, or bagels for weekend pickup?",
-    promptLanguage: "Speak strictly in English."
-  },
-  fr: {
-    title: "Toast Face",
-    subtitle: "Bread Co",
-    demo: "Assistante de Boulangerie IA",
-    h1_1: "Ne Manquez Jamais une ",
-    h1_2: "Commande.",
-    desc: "Combien de commandes perdez-vous lorsque vous êtes occupée à pétrir ? Découvrez votre nouvelle assistante de boulangerie numérique, formée pour prendre les commandes du week-end et répondre instantanément aux questions sur le levain.",
-    howTo: "Comment tester cette assistante :",
-    test1: "Cliquez sur le bouton ci-dessus pour démarrer un appel vocal en direct.",
-    test2: "Demandez à l'IA des renseignements sur une Focaccia au Za'atar ou une Boule aux Noix.",
-    test3: "Dites-lui que vous voulez commander une boîte de bagels pour ce samedi à Hazeldean.",
-    greeting: "Bonjour, bienvenue chez Toast Face ! Welcome to Toast Face Bread Co! Cherchez-vous à commander du pain au levain frais, de la focaccia ou des bagels pour ce week-end ?",
-    promptLanguage: "Speak strictly in French."
-  }
-};
-
-export default function BakeryDemoPage() {
-  const [isMounted, setIsMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  const t = content.en;
-
+export default function ToastFaceWebsite() {
   const systemPrompt = `You are Toasty, a fun, enthusiastic artisanal bakery assistant for Toast Face Bread Co., a small-batch sourdough operation run by Angie.
-${t.promptLanguage}
+Speak strictly in English.
 Your goal is to take bread orders for weekend pickups, answer deep questions about sourdough fermentation, and represent the bakery's passionate artisanal vibe.
 
 BREAD & LOCATION KNOWLEDGE:
@@ -72,60 +29,46 @@ IMPORTANT: Always cheerfully remind callers to check out the amazing bread photo
 Keep your responses warm, fun, and extremely helpful.`;
 
   return (
-    <div className="flex min-h-[100dvh] flex-col bg-[#FAFAF8] text-slate-900 font-sans transition-colors duration-300 dark:bg-slate-950 dark:text-white">
-      {/* Header */}
-      <header className="flex h-20 items-center justify-between border-b border-orange-100 px-6 lg:px-12 bg-[#FAFAF8]/80 backdrop-blur-md sticky top-0 z-50 dark:border-slate-800 dark:bg-slate-950/80">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#E07A5F] shadow-lg shadow-[#E07A5F]/20 dark:bg-[#E07A5F]">
-            <Croissant className="h-5 w-5 text-white" />
-          </div>
-          <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
-            {t.title} <span className="font-light text-[#E07A5F] dark:text-[#E07A5F]">{t.subtitle}</span>
-          </span>
-        </div>
-        <div className="flex items-center gap-6">
-          <div className="hidden text-sm font-medium text-slate-500 sm:block dark:text-slate-400">
-            {t.demo}
-          </div>
-          
-          <div className="flex items-center gap-2 border-l border-orange-100 pl-6 dark:border-slate-800">
-            {isMounted && (
-              <button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="flex h-9 w-9 items-center justify-center rounded-full text-slate-600 transition-colors hover:bg-orange-50 dark:text-slate-300 dark:hover:bg-slate-800"
-              >
-                {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-              </button>
-            )}
+    <div className="min-h-[100dvh] bg-[#FAFAF8] text-slate-900 font-sans selection:bg-[#E07A5F] selection:text-white">
+      {/* Navigation */}
+      <nav className="sticky top-0 z-50 bg-[#FAFAF8]/95 backdrop-blur-sm border-b border-[#D4A373]/20">
+        <div className="mx-auto max-w-7xl px-6 lg:px-12 flex items-center justify-between py-4">
+          <Link className="text-2xl font-serif font-bold text-[#D4A373]" href="/">Toast Face</Link>
+          <div className="flex items-center gap-8">
+            <a className="text-sm font-medium hover:text-[#D4A373] transition-colors" href="#products">Products</a>
+            <a className="text-sm font-medium hover:text-[#D4A373] transition-colors" href="#about">About</a>
+            <a className="text-sm font-medium hover:text-[#D4A373] transition-colors" href="#contact">Contact</a>
           </div>
         </div>
-      </header>
+      </nav>
 
-      <main className="flex-1">
+      <main>
+        {/* Hero Section */}
         <section className="relative overflow-hidden px-6 pb-24 pt-20 lg:px-12 lg:pb-32 lg:pt-28">
-          {/* Subtle gradient background */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-orange-50/50 via-[#FAFAF8] to-[#FAFAF8] transition-colors duration-300 dark:from-[#E07A5F]/20 dark:via-slate-950 dark:to-slate-950" />
-
-          <div className="relative mx-auto max-w-5xl text-center">
-            <h1 className="font-display text-5xl font-semibold leading-tight tracking-tight sm:text-6xl lg:text-7xl">
-              {t.h1_1} <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E07A5F] to-[#D4A373] dark:from-[#E07A5F] dark:to-[#F4A261]">{t.h1_2}</span>
-            </h1>
-            <p className="mx-auto mt-8 max-w-2xl text-lg text-slate-600 sm:text-xl dark:text-slate-400">
-              {t.desc}
-            </p>
-
-            <div className="mt-16 flex flex-col items-center justify-center">
-              <div className="relative w-full max-w-sm overflow-hidden rounded-[2rem] shadow-2xl shadow-[#D4A373]/20 ring-1 ring-slate-200 dark:shadow-black/50 dark:ring-slate-800">
-                <img src="/bakery.png" alt="Toast Face Bread Co" className="h-[600px] w-full object-cover" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#E07A5F]/10 via-[#FAFAF8] to-[#FAFAF8]" />
+          
+          <div className="relative mx-auto max-w-7xl">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              <div>
+                <p className="text-[#D4A373] font-sans font-semibold uppercase tracking-wide mb-4">Toast Face Bread Co</p>
+                <h1 className="text-5xl lg:text-7xl font-serif font-bold leading-tight text-slate-900 mb-8">
+                  Fresh out of the oven
+                </h1>
+                <p className="text-lg text-slate-600 mb-12 leading-relaxed max-w-lg">
+                  Small batch sourdough and artisan bread from Edmonton. Handcrafted daily, available for pickup Saturday & Sunday at Hazeldean.
+                </p>
                 
-                {/* Gradient Overlay for Text/Button Readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                
-                {/* Call Interface Overlay */}
-                <div className="absolute inset-x-0 bottom-0 flex flex-col items-center p-8 text-center">
-                  <h3 className="text-2xl font-bold text-white drop-shadow-md">Toasty</h3>
-                  <p className="mb-6 text-sm font-medium text-white/90 drop-shadow-md">Bakery AI Assistant</p>
-                  
+                {/* The AI Assistant Integration */}
+                <div className="bg-white p-6 rounded-2xl border border-orange-100 shadow-xl shadow-orange-900/5 max-w-md">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#E07A5F]/10">
+                      <PhoneCall className="h-6 w-6 text-[#E07A5F]" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-slate-900">Order via AI Assistant</h3>
+                      <p className="text-sm text-slate-500">Tap to call Toasty & place your order</p>
+                    </div>
+                  </div>
                   <div className="w-full">
                     <VapiWebCallButton 
                       assistantOverrides={{
@@ -136,7 +79,7 @@ Keep your responses warm, fun, and extremely helpful.`;
                           { id: "tb_bagels_6", name: "Bagels (Half Dozen)", duration_minutes: 5, price_cents: 1500 },
                           { id: "tb_bagels_12", name: "Bagels (Full Dozen)", duration_minutes: 5, price_cents: 2800 }
                         ],
-                        voiceGreeting: t.greeting,
+                        voiceGreeting: "Welcome to Toast Face Bread Co! Are you looking to order some fresh sourdough, focaccia, or bagels for weekend pickup?",
                         systemPrompt: systemPrompt,
                         voice: {
                           provider: "openai",
@@ -145,45 +88,173 @@ Keep your responses warm, fun, and extremely helpful.`;
                       }}
                     />
                   </div>
-                  
-                  <p className="mt-4 text-[11px] text-white/60">Microphone required to speak</p>
+                </div>
+              </div>
+
+              <div className="relative aspect-[4/5] lg:aspect-square rounded-2xl overflow-hidden shadow-2xl">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#D4A373]/20 to-[#E07A5F]/20 z-10" />
+                <img src="/bakery.png" alt="Fresh sourdough bread coming out of the oven" className="object-cover h-full w-full" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Products Section */}
+        <section id="products" className="py-24 bg-white">
+          <div className="mx-auto max-w-7xl px-6 lg:px-12">
+            <div className="text-center mb-16">
+              <h2 className="text-5xl font-serif font-bold text-slate-900 mb-4">What we make</h2>
+              <p className="text-lg text-slate-600 max-w-2xl mx-auto">Our range of fresh, handcrafted breads. Baked fresh weekly.</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+              {/* Boule */}
+              <div className="bg-[#FAFAF8] p-8 rounded-2xl border border-orange-50">
+                <h3 className="text-2xl font-serif font-bold text-slate-900 mb-6">Boule</h3>
+                <div className="space-y-6">
+                  <div>
+                    <p className="text-[#D4A373] font-semibold mb-1">Basic Boule</p>
+                    <p className="text-slate-500 text-sm">$10</p>
+                  </div>
+                  <div>
+                    <p className="text-[#D4A373] font-semibold mb-2">Inclusion Boule</p>
+                    <p className="text-slate-500 text-sm mb-2">$12</p>
+                    <ul className="list-disc list-inside text-slate-500 text-sm space-y-1">
+                      <li>Cheddar jalapeño</li>
+                      <li>Olive, lemon, thyme & parm</li>
+                      <li>Sundried tomato parm</li>
+                      <li>Cranberry walnut</li>
+                      <li>Roasted garlic and rosemary</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Focaccia */}
+              <div className="bg-[#FAFAF8] p-8 rounded-2xl border border-orange-50">
+                <h3 className="text-2xl font-serif font-bold text-slate-900 mb-6">Focaccia</h3>
+                <div className="space-y-4">
+                  <div>
+                    <p className="text-[#D4A373] font-semibold mb-1">Focaccia Varieties</p>
+                    <p className="text-slate-500 text-sm mb-3">$12 – $15</p>
+                    <ul className="list-disc list-inside text-slate-500 text-sm space-y-1">
+                      <li>Plain</li>
+                      <li>Tomato pesto mozza</li>
+                      <li>Cinnamon roll</li>
+                      <li>Rosemary</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bagels */}
+              <div className="bg-[#FAFAF8] p-8 rounded-2xl border border-orange-50">
+                <h3 className="text-2xl font-serif font-bold text-slate-900 mb-6">Bagels</h3>
+                <div className="space-y-4">
+                  <div>
+                    <p className="text-[#D4A373] font-semibold mb-2">Mix and Match</p>
+                    <p className="text-slate-500 text-sm mb-3">$15 for 6 / $28 for 12</p>
+                    <ul className="list-disc list-inside text-slate-500 text-sm space-y-1">
+                      <li>Plain</li>
+                      <li>Cheddar jalapeño</li>
+                      <li>Everything</li>
+                      <li>Sesame</li>
+                      <li>Poppyseed</li>
+                      <li>Cinnamon crunch</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Guest Specials */}
+              <div className="bg-[#FAFAF8] p-8 rounded-2xl border border-orange-50">
+                <h3 className="text-2xl font-serif font-bold text-slate-900 mb-6">Guest Specials</h3>
+                <div className="space-y-4">
+                  <p className="text-[#E07A5F] font-semibold">Hot Honey & Feta Focaccia</p>
+                  <p className="text-[#E07A5F] font-semibold">Za&apos;atar & Olive Oil Focaccia</p>
                 </div>
               </div>
             </div>
 
-            <div className="mx-auto mt-24 max-w-3xl border border-slate-200 bg-white p-8 rounded-3xl shadow-xl shadow-orange-900/5 transition-colors duration-300 dark:border-slate-800 dark:bg-slate-900 dark:shadow-none">
-              <h3 className="text-xl font-semibold text-slate-900 dark:text-white">{t.howTo}</h3>
-              <ul className="mt-6 space-y-5 text-left text-slate-600 dark:text-slate-400">
-                <li className="flex items-start gap-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-orange-50 dark:bg-orange-500/10">
-                    <PhoneCall className="h-5 w-5 text-[#E07A5F] dark:text-[#F4A261]" />
-                  </div>
-                  <span className="mt-2">{t.test1}</span>
-                </li>
-                <li className="flex items-start gap-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-orange-50 dark:bg-orange-500/10">
-                    <Croissant className="h-5 w-5 text-[#E07A5F] dark:text-[#F4A261]" />
-                  </div>
-                  <span className="mt-2" dangerouslySetInnerHTML={{ __html: t.test2.replace("Za'atar Focaccia", "<strong>Za'atar Focaccia</strong>").replace("Cranberry Walnut Boule", "<strong>Cranberry Walnut Boule</strong>").replace("Focaccia au Za'atar", "<strong>Focaccia au Za'atar</strong>").replace("Boule aux Noix", "<strong>Boule aux Noix</strong>") }} />
-                </li>
-                <li className="flex items-start gap-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-orange-50 dark:bg-orange-500/10">
-                    <CalendarDays className="h-5 w-5 text-[#E07A5F] dark:text-[#F4A261]" />
-                  </div>
-                  <span className="mt-2" dangerouslySetInnerHTML={{ __html: t.test3.replace("this Saturday at Hazeldean", "<strong>this Saturday at Hazeldean</strong>").replace("ce samedi à Hazeldean", "<strong>ce samedi à Hazeldean</strong>") }} />
-                </li>
-              </ul>
+            <div className="bg-[#D4A373]/10 border-l-4 border-[#D4A373] p-8 rounded-r-2xl">
+              <p className="font-semibold text-slate-900">Pickup: Saturday & Sunday — Hazeldean Location</p>
+              <p className="text-slate-600 text-sm mt-2">We bake fresh twice weekly. Pre-order for guaranteed availability.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* About Section */}
+        <section id="about" className="py-24">
+          <div className="mx-auto max-w-7xl px-6 lg:px-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl bg-[#E07A5F]/10 flex flex-col items-center justify-center p-12 text-center">
+                <Croissant className="w-24 h-24 text-[#E07A5F]/60 mb-6" />
+                <h3 className="text-2xl font-serif font-bold text-slate-800">Toast Face Bread Co.</h3>
+                <p className="text-slate-600 mt-2 font-medium">Est. 2024</p>
+              </div>
+              <div>
+                <h2 className="text-5xl font-serif font-bold text-slate-900 mb-6">Made with care</h2>
+                <p className="text-lg text-slate-600 mb-6 leading-relaxed">
+                  Toast Face Bread Co is a small-batch sourdough operation run by Angie. Every loaf is handcrafted with locally-sourced ingredients and baked fresh daily.
+                </p>
+                <p className="text-lg text-slate-600 mb-6 leading-relaxed">
+                  We believe in slow fermentation, minimal intervention, and letting the dough do what it does best—rise, develop flavor, and turn into something special.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Contact Section */}
+        <section id="contact" className="py-24 bg-white border-t border-orange-50">
+          <div className="mx-auto max-w-7xl px-6 lg:px-12">
+            <div className="text-center mb-16">
+              <h2 className="text-5xl font-serif font-bold text-slate-900 mb-4">Stay connected</h2>
+              <p className="text-lg text-slate-600">Follow along for updates, new flavors, and weekend pickup schedules.</p>
             </div>
 
-            <div className="mt-32">
-              <h2 className="mb-12 font-display text-3xl font-semibold text-slate-900 dark:text-white">
-                Orders sync directly into your dashboard
-              </h2>
-              <DashboardMockup locale="en" />
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start mb-12">
+              <div className="flex flex-col items-center">
+                <div className="bg-[#FAFAF8] p-8 rounded-full mb-4 border border-orange-100 shadow-sm">
+                  <Camera className="h-12 w-12 text-[#E07A5F]" />
+                </div>
+              </div>
+              
+              <div className="flex flex-col gap-8 text-center lg:text-left">
+                <div>
+                  <h3 className="text-xl font-serif font-bold text-slate-900 mb-3">Instagram</h3>
+                  <a href="https://www.instagram.com/toastfacebreadco/" target="_blank" rel="noopener noreferrer" className="text-[#D4A373] hover:text-[#E07A5F] transition-colors font-medium text-lg">
+                    @toastfacebreadco
+                  </a>
+                </div>
+                <div>
+                  <h3 className="text-xl font-serif font-bold text-slate-900 mb-3">Location</h3>
+                  <p className="text-slate-600 flex items-center justify-center lg:justify-start gap-2">
+                    <MapPin className="h-4 w-4 text-[#D4A373]" /> Hazeldean, Edmonton, AB
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col items-center lg:items-start">
+                <h3 className="text-xl font-serif font-bold text-slate-900 mb-6">Pickup Schedule</h3>
+                <div className="bg-[#D4A373]/10 border-l-4 border-[#D4A373] p-6 w-full rounded-r-2xl">
+                  <p className="font-semibold text-slate-900 mb-2">Saturday & Sunday</p>
+                  <p className="text-slate-600 text-sm mb-4">Fresh bread baked twice weekly</p>
+                  <p className="text-sm text-[#E07A5F] font-semibold">Hazeldean Location</p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
       </main>
+
+      {/* Footer */}
+      <footer className="bg-slate-900 text-[#FAFAF8] py-8">
+        <div className="mx-auto max-w-7xl px-6 lg:px-12 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-sm">© 2024 Toast Face Bread Co. Small batch sourdough from Edmonton.</p>
+          <p className="text-sm text-slate-400">Baked with care by Angie</p>
+        </div>
+      </footer>
     </div>
   );
 }
